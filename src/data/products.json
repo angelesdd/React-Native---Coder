@@ -10,7 +10,7 @@
         "stock": 94,
         "brand": "Apple",
         "category": "Buenos Aires",
-        "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+        "thumbnail": "https://firebasestorage.googleapis.com/v0/b/proyecto-react-mascarpone.appspot.com/o/React%20Native%2FEl%20principito_H.png?alt=media&token=6b2a7baa-640e-4bfd-90f5-ded9c3966ddb",
         "images": [
             "https://i.dummyjson.com/data/products/1/1.jpg",
             "https://i.dummyjson.com/data/products/1/2.jpg",
@@ -30,7 +30,7 @@
         "stock": 34,
         "brand": "Apple",
         "category": "Santa Fe",
-        "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+        "thumbnail": "https://firebasestorage.googleapis.com/v0/b/proyecto-react-mascarpone.appspot.com/o/React%20Native%2Frolon_unlm.png?alt=media&token=b0f6a95b-2f54-42ff-ad5b-561a14bed43d",
         "images": [
             "https://i.dummyjson.com/data/products/2/1.jpg",
             "https://i.dummyjson.com/data/products/2/2.jpg",
@@ -49,7 +49,7 @@
         "stock": 36,
         "brand": "Samsung",
         "category": "Santa Fe",
-        "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+        "thumbnail": "https://firebasestorage.googleapis.com/v0/b/proyecto-react-mascarpone.appspot.com/o/React%20Native%2Frolon_unlm.png?alt=media&token=b0f6a95b-2f54-42ff-ad5b-561a14bed43d",
         "images": [
             "https://i.dummyjson.com/data/products/3/1.jpg"
         ]
@@ -65,7 +65,7 @@
         "stock": 36,
         "brand": "Samsung",
         "category": "Córdoba",
-        "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+        "thumbnail": "https://firebasestorage.googleapis.com/v0/b/proyecto-react-mascarpone.appspot.com/o/React%20Native%2Frolon_unlm.png?alt=media&token=b0f6a95b-2f54-42ff-ad5b-561a14bed43d",
         "images": [
             "https://i.dummyjson.com/data/products/3/1.jpg"
         ]

@@ -1,26 +1,42 @@
-import React from "react";
-import { StyleSheet, View, Text } from "react-native";
-import Header from "../components/Header";
+// ItemListCategory.js
 
-const ItemListCategories = () => {
-    //const category = "Your Category"; // Aquí deberías tener una variable category definida o pasada como prop
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+
+
+import Search from '../components/Search';
+import categories from'../data/categories.json';
+import CategoryItem from '../components/CategoryItem';
+
+const ItemListCategory = () => {
+    const [filteredCategories, setFilteredCategories] = useState(categories);
+
+    const handleSearch = (query) => {
+        const lowerCaseQuery = query.toLowerCase();
+        if (lowerCaseQuery === '') {
+            setFilteredCategories(categories);
+        } else {
+            const filteredData = categories.filter(category =>
+                category.toLowerCase().includes(lowerCaseQuery)
+            );
+            setFilteredCategories(filteredData);
+        }
+    };
 
     return (
-        <>
-            <Header title={category} />
-            <View style={styles.container}>
-                <Text>ItemListCategory</Text>
-            </View>
-        </>
+        <View style={styles.container}>
+            <Search onSearch={handleSearch} />
+            {filteredCategories.map(category => (
+                <CategoryItem key={category} category={category} />
+            ))}
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
+        paddingTop: 20,
+    },
 });
 
-export default ItemListCategories
+export default ItemListCategory;

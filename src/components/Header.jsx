@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Categories from './Categories';
 
-const Header = ({ title = "Hola!" }) => {
+
+const Header = ({title}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{title}</Text>
@@ -12,7 +12,7 @@ const Header = ({ title = "Hola!" }) => {
 
 const styles = StyleSheet.create({
   container: {
-    //backgroundColor: 'green',
+    backgroundColor: 'green',
     height: 80,
     width: '100%',
     justifyContent: 'center',
@@ -24,6 +24,5 @@ const styles = StyleSheet.create({
 });
 
 export default Header
-
 
 
