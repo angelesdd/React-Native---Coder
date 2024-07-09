@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "dedonatis",
-    "slug": "dedonatis",
+    "name": "ecomerce",
+    "slug": "ecomerce",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
@@ -22,6 +22,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

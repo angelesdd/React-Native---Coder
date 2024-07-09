@@ -1,40 +1,52 @@
-import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import Search from "../components/Search";
+import ProductItem from "../components/ProductItem.jsx";
+import { useGetProductsByCategoryQuery } from "../services/shopServices.js";
 
+const ItemListCategory = ({ navigation, route }) => {
+  const [keyWord, setKeyword] = useState("");
+  const [productsFiltered, setProductsFiltered] = useState([]);
 
-import Search from '../components/Search';
-import categories from'../data/categories.json';
-import CategoryItem from '../components/CategoryItem';
+  const { category: categorySelected } = route.params;
 
-const ItemListCategory = () => {
-    const [filteredCategories, setFilteredCategories] = useState(categories);
+  const { data: productsFetched, isLoading } = useGetProductsByCategoryQuery(categorySelected);
 
-    const handleSearch = (query) => {
-        const lowerCaseQuery = query.toLowerCase();
-        if (lowerCaseQuery === '') {
-            setFilteredCategories(categories);
-        } else {
-            const filteredData = categories.filter(category =>
-                category.toLowerCase().includes(lowerCaseQuery)
-            );
-            setFilteredCategories(filteredData);
-        }
-    };
+  useEffect(() => {
+    if (!isLoading) {
+      const productsFiter = productsFetched.filter((product) =>
+        product.title.toLowerCase().includes(keyWord.toLowerCase())
+      );
+      setProductsFiltered(productsFiter);
+    }
+  }, [keyWord, categorySelected, productsFetched, isLoading]);
 
-    return (
-        <View style={styles.container}>
-            <Search onSearch={handleSearch} />
-            {filteredCategories.map(category => (
-                <CategoryItem key={category} category={category} />
-            ))}
-        </View>
-    );
+  return (
+    <View style={styles.flatListContainer}>
+      <Search
+        onSearch={setKeyword}
+        goBack={() => navigation.goBack()}
+      />
+      <FlatList
+        data={productsFiltered}
+        renderItem={({ item }) => (
+          <ProductItem product={item} navigation={navigation} />
+        )}
+        keyExtractor={(producto) => producto.id}
+      />
+    </View>
+  );
 };
 
-const styles = StyleSheet.create({
-    container: {
-        paddingTop: 20,
-    },
-});
-
 export default ItemListCategory;
+
+const styles = StyleSheet.create({
+  flatListContainer: {
+    width: "100%",
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+  },
+});

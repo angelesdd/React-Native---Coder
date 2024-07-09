@@ -1,48 +1,73 @@
-import React from 'react';
-import { StyleSheet, FlatList, Text, View, Image } from 'react-native';
-import products from '../data/products.json';
+import { Image, Pressable, StyleSheet, Text } from "react-native";
+import React from "react";
+import Card from "./Card";
+import { useDispatch } from "react-redux";
+import { setItemSelected } from "../features/Shop/ShopSlice";
 
-const ProductItem = ({ category }) => {
-  const filteredProducts = products.filter(product => product.category === category);
+const ProductItem = ({
+  product,
+  navigation
+}) => {
 
-  const renderProduct = ({ item }) => (
-    <View style={styles.productContainer}>
-      <Image source={{ uri: item.thumbnail }} style={styles.thumbnail} />
-      <View style={styles.productInfo}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text>{item.subtitle}</Text>
-      </View>
-    </View>
-  );
+  const dispatch = useDispatch()
+
+  const handleNavigate = () => {
+    dispatch(setItemSelected(product.title))
+    navigation.navigate("ItemDetail", { productoId: product.id });
+  }
 
   return (
-    <FlatList
-      data={filteredProducts}
-      renderItem={renderProduct}
-      keyExtractor={item => item.id.toString()}
-    />
+    <Card style={styles.additionalStylesCard}>
+      <Pressable
+        style={styles.pressable}
+        onPress={handleNavigate}
+      >
+        <Text style={styles.textCategory}>{product.title}</Text>
+        <Image
+          resizeMode="cover"
+          style={styles.image}
+          source={{ uri: product.images[0] }}
+        />
+      </Pressable>
+    </Card>
   );
 };
 
-const styles = StyleSheet.create({
-  productContainer: {
-    flexDirection: 'row',
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
-  thumbnail: {
-    width: 100,
-    height: 100,
-    marginRight: 10,
-  },
-  productInfo: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-});
-
 export default ProductItem;
+
+const styles = StyleSheet.create({
+  image: {
+    height: 90,
+    width: "30%",
+    borderRadius: 8,
+    backgroundColor: "orange",
+  },
+  _additionalStylesCard: {
+    height: 90,
+    width: 370,
+    margin: 10,
+    paddingLeft: 8,
+    justifyContent: "space-between",
+    flexDirection: "row",
+    backgroundColor: "red",
+    borderRadius: 8,
+  },
+  get additionalStylesCard() {
+    return this._additionalStylesCard;
+  },
+  set additionalStylesCard(value) {
+    this._additionalStylesCard = value;
+  },
+  textCategory: {
+    width: '90%',
+    backgroundColor: "purple",
+    fontSize: 20,
+  },
+  pressable : {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: 10,
+  }
+});

@@ -1,18 +1,36 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import Header from '../components/Header'
+import React from "react";
+import { StyleSheet, View, FlatList } from "react-native";
+import CategoryItem from "../components/CategoryItem";
+import { useGetCategoriesQuery } from "../services/shopServices";
 
-import ItemListCategory from './ItemListCategory'
 
-const Home = () => {
+
+const Home = ({ navigation, route }) => {
+  const {data: categories} = useGetCategoriesQuery()
   return (
-  <View>
-    <Header title='Categories'/>
-    <ItemListCategory/>
-  </View>
-  )
-}
+    <View style={styles.flatListContainer}>
 
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(category) => category}
+        data={categories}
+        renderItem={({ item }) => (
+          <CategoryItem category={item} navigation={navigation} />
+        )}
+      />
+    </View>
+  );
+};
 
+export default Home;
 
-export default Home
+const styles = StyleSheet.create({
+  flatListContainer: {
+    width: "100%",
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+  },
+});

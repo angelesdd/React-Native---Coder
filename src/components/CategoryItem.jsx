@@ -1,36 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, Pressable, View } from 'react-native';
-import ProductItem from './ProductItem';
+import { StyleSheet, Text, Pressable } from 'react-native'
+import Card from './Card';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCategorySelected } from '../features/Shop/ShopSlice';
 
-const CategoryItem = ({ category }) => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
 
-  const selectCategory = (category) => {
-    if(selectedCategory){
-      setSelectedCategory(null)
-    }else{
-      setSelectedCategory(category);
-    }
-  };
+const CategoryItem = ({ category, navigation}) => {
+  const dispatch = useDispatch()
+
+  const handleNavigate = () => {
+    dispatch(setCategorySelected(category))
+    navigation.navigate("ItemListCategory", { category });
+  }
 
   return (
-    <View style={styles.cardContainer}>
-      <Pressable onPress={() => selectCategory(category)}>
+    <Card style={styles.cardContainer}>
+      <Pressable onPress={handleNavigate}>
         <Text style={styles.text}>{category}</Text>
       </Pressable>
-      {selectedCategory === category && <ProductItem category={category} />}
-    </View>
+    </Card>
   );
 };
 
-export default CategoryItem;
+export default CategoryItem
 
 const styles = StyleSheet.create({
-  cardContainer: {
-    marginHorizontal: 10,
-    marginVertical: 10,
-  },
-  text: {
-    fontSize: 20,
-  },
-});
+    cardContainer: {
+        marginHorizontal: 10, 
+        marginVertical: 10,
+    }, 
+    text: {
+        fontSize: 20,
+        textAlign: 'center',
+
+    }
+})
