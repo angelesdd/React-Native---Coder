@@ -1,5 +1,6 @@
 import { StyleSheet, View } from 'react-native'
 
+
 const Card = ({children, style}) => {
   return (
     <View style={{...styles.container, ...style}}>
@@ -12,8 +13,8 @@ export default Card
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(224,224,224,255)',
-    shadowColor: 'rgba(112,113,115,255)',
+    backgroundColor: "white",
+    shadowColor: "black",
     width: 250,
     height: 40,
     shadowOffset: {

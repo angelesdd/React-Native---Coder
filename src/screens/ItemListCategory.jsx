@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, View, Dimensions } from "react-native";
 import React, { useEffect, useState } from "react";
 import Search from "../components/Search";
 import ProductItem from "../components/ProductItem.jsx";
@@ -7,32 +7,33 @@ import { useGetProductsByCategoryQuery } from "../services/shopServices.js";
 const ItemListCategory = ({ navigation, route }) => {
   const [keyWord, setKeyword] = useState("");
   const [productsFiltered, setProductsFiltered] = useState([]);
-
   const { category: categorySelected } = route.params;
-
-  const { data: productsFetched, isLoading } = useGetProductsByCategoryQuery(categorySelected);
+  const { data: productsFetched, error: errorFetched, isLoading } = useGetProductsByCategoryQuery(categorySelected);
 
   useEffect(() => {
     if (!isLoading) {
-      const productsFiter = productsFetched.filter((product) =>
-        product.title.toLowerCase().includes(keyWord.toLowerCase())
+      const productsFilter = productsFetched.filter((product) =>
+        product.title.toLocaleLowerCase().includes(keyWord.toLocaleLowerCase())
       );
-      setProductsFiltered(productsFiter);
+      setProductsFiltered(productsFilter);
     }
   }, [keyWord, categorySelected, productsFetched, isLoading]);
 
   return (
-    <View style={styles.flatListContainer}>
-      <Search
-        onSearch={setKeyword}
-        goBack={() => navigation.goBack()}
-      />
+    <View style={styles.container}>
+      <View style={styles.searchContainer}>
+        <Search
+          onSearch={setKeyword}
+          goBack={() => navigation.goBack()}
+        />
+      </View>
       <FlatList
         data={productsFiltered}
         renderItem={({ item }) => (
           <ProductItem product={item} navigation={navigation} />
         )}
         keyExtractor={(producto) => producto.id}
+        contentContainerStyle={styles.flatListContentContainer}
       />
     </View>
   );
@@ -40,13 +41,20 @@ const ItemListCategory = ({ navigation, route }) => {
 
 export default ItemListCategory;
 
+const { width } = Dimensions.get('window'); 
+
 const styles = StyleSheet.create({
-  flatListContainer: {
-    width: "100%",
+  container: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
+    backgroundColor: 'rgb(229, 231, 233)', 
+    padding: 10, 
+  },
+  searchContainer: {
+    marginBottom: 15, 
+    width: width * 0.9, 
+    alignSelf: 'center', 
+  },
+  flatListContentContainer: {
+    paddingBottom: 20, 
   },
 });

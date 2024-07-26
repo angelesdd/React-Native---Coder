@@ -8,6 +8,7 @@ const Counter = () => {
 
   const count = useSelector((state)=> state.counter.value)
   const dispatch = useDispatch()
+
   const [inputToAdd, setInputToAdd] = useState(null);
 
 
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
+    backgroundColor: 'rgb(127, 179, 213)',
     padding: 10,
   },
   buttonsContainer: {
@@ -61,10 +63,10 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 10,
-
+    backgroundColor: 'rgb(127, 179, 213)',
   },
   span: {
-
+    backgroundColor: 'rgb(127, 179, 213)',
     width: "60%",
     padding: 10,
     textAlign: "center",
@@ -72,15 +74,14 @@ const styles = StyleSheet.create({
 
   },
   spanInput: {
-
+    backgroundColor: 'rgb(229, 231, 233)',
     width: "60%",
     padding: 10,
     textAlign: "center",
     fontSize: 16,
-
+    color: 'rgb(127, 179, 213)',
   },
   buttonText: {
     fontSize: 18,
-    fontFamily: "Josefin",
   },
 });
