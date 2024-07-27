@@ -51,7 +51,7 @@ const Cart = () => {
         </>
       ) : (
         <View style={styles.emptyCartContainer}>
-          <Text style={styles.emptyCartText}>No tienes productos agregados a tu carrito</Text>
+          <Text style={styles.emptyCartText}>No tienes productos agregados a su carrito</Text>
         </View>
       )}
     </View>

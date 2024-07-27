@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Search from "../components/Search";
 import ProductItem from "../components/ProductItem.jsx";
 import { useGetProductsByCategoryQuery } from "../services/shopServices.js";
+import Loader from "../components/Loader";
 
 const ItemListCategory = ({ navigation, route }) => {
   const [keyWord, setKeyword] = useState("");
@@ -20,7 +21,12 @@ const ItemListCategory = ({ navigation, route }) => {
   }, [keyWord, categorySelected, productsFetched, isLoading]);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, isLoading && styles.loaderContainer]}>
+      {isLoading
+      ?
+      <Loader/>
+      :
+      <>
       <View style={styles.searchContainer}>
         <Search
           onSearch={setKeyword}
@@ -35,6 +41,8 @@ const ItemListCategory = ({ navigation, route }) => {
         keyExtractor={(producto) => producto.id}
         contentContainerStyle={styles.flatListContentContainer}
       />
+      </>
+    }
     </View>
   );
 };
@@ -48,6 +56,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgb(229, 231, 233)', 
     padding: 10, 
+  },
+  loaderContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   searchContainer: {
     marginBottom: 15, 
