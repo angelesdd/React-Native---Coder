@@ -1,7 +1,17 @@
 import * as SQLite from 'expo-sqlite';
+import { Platform } from 'react-native';
+
 
 export const useDB = () => {
 
+    if (Platform.OS === 'web') {
+        return {
+            initDB: () => {},
+            insertSession: () => {},
+            getSession: () => {},
+            truncateSessionTable: () => {},
+        };
+    }
     
     const db = SQLite.openDatabaseSync("sessions.db");
 
